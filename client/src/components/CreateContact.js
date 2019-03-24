@@ -2,21 +2,52 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { saveContact } from "../actions/contactActions";
+import { saveContact, editContact } from "../actions/contactActions";
 import serialize from "form-serialize";
 
 class CreateContact extends Component {
+  state = {
+    name: "",
+    phone: "",
+    email: "",
+    address: "",
+    city: ""
+  };
+
+  componentDidMount = () => {
+    if (this.props.location.state) {
+      const { name, phone, email, address, city } = this.props.location.state;
+      this.setState({
+        name,
+        phone,
+        email,
+        address,
+        city
+      });
+    }
+  };
+
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
+
   submitContact = event => {
     event.preventDefault();
     const data = serialize(event.target, { hash: true });
-    this.props.contactSave(data);
+    if (this.props.location.state) {
+      this.props.contactEdit(this.props.location.state._id, data);
+    } else {
+      this.props.contactSave(data);
+    }
     this.props.history.push("/");
   };
 
   render() {
     return (
       <div style={{ width: "45%" }}>
-        <form onSubmit={this.submitContact}>
+        <form onSubmit={this.submitContact} onChange={this.handleChange}>
           <TextField
             name="name"
             label="Name"
@@ -25,6 +56,7 @@ class CreateContact extends Component {
             autoComplete="off"
             fullWidth
             required
+            value={this.state.name}
           />
           <TextField
             name="phone"
@@ -34,6 +66,7 @@ class CreateContact extends Component {
             autoComplete="off"
             fullWidth
             required
+            value={this.state.phone}
           />
           <TextField
             name="email"
@@ -43,6 +76,7 @@ class CreateContact extends Component {
             style={{ margin: 8 }}
             fullWidth
             required
+            value={this.state.email}
           />
           <TextField
             name="address"
@@ -52,6 +86,7 @@ class CreateContact extends Component {
             autoComplete="off"
             fullWidth
             required
+            value={this.state.address}
           />
           <TextField
             name="city"
@@ -61,6 +96,7 @@ class CreateContact extends Component {
             autoComplete="off"
             fullWidth
             required
+            value={this.state.city}
           />
           <Button type="submit" color="primary" variant="contained">
             Submit
@@ -73,7 +109,8 @@ class CreateContact extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    contactSave: contact => dispatch(saveContact(contact))
+    contactSave: contact => dispatch(saveContact(contact)),
+    contactEdit: (id, data) => dispatch(editContact(id, data))
   };
 }
 

@@ -1,8 +1,4 @@
-import {
-  FETCH_CONTACT_SUCCESS,
-  POST_CONTACT_SUCCESS,
-  DELETE_CONTACT_SUCCESS
-} from "../actions/actions";
+import * as types from "../actions/types";
 
 const initialState = {
   contacts: []
@@ -10,23 +6,31 @@ const initialState = {
 
 export function contacts(state = initialState, action) {
   switch (action.type) {
-    case FETCH_CONTACT_SUCCESS:
+    case types.FETCH_CONTACT_SUCCESS:
       return {
         ...state,
         contacts: [...action.payload]
       };
-    case POST_CONTACT_SUCCESS:
+    case types.POST_CONTACT_SUCCESS:
       return {
         ...state,
         contacts: [...state.contacts, action.payload.data]
       };
-    case DELETE_CONTACT_SUCCESS:
+    case types.DELETE_CONTACT_SUCCESS:
+      return {
+        ...state,
+        contacts: [...state.contacts].filter(contact => {
+          return contact._id !== action.payload.data._id;
+        })
+      };
+
+    case types.EDIT_CONTACT_SUCCESS:
       const newContacts = [...state.contacts].filter(contact => {
         return contact._id !== action.payload.data._id;
       });
       return {
         ...state,
-        contacts: newContacts
+        contacts: [...newContacts, action.payload.data]
       };
 
     default:

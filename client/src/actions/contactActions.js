@@ -1,28 +1,31 @@
 import axios from "axios";
-import {
-  FETCH_CONTACT_SUCCESS,
-  POST_CONTACT_SUCCESS,
-  DELETE_CONTACT_SUCCESS
-} from "./actions";
+import * as actions from "./types";
 import { BASE_URL } from "../config/config";
 
 function fetchContactsSuccess(contacts) {
   return {
-    type: FETCH_CONTACT_SUCCESS,
+    type: actions.FETCH_CONTACT_SUCCESS,
     payload: [...contacts]
   };
 }
 
 function saveContactSuccess(contact) {
   return {
-    type: POST_CONTACT_SUCCESS,
+    type: actions.POST_CONTACT_SUCCESS,
     payload: contact
   };
 }
 
 function deleteContactSuccess(contact) {
   return {
-    type: DELETE_CONTACT_SUCCESS,
+    type: actions.DELETE_CONTACT_SUCCESS,
+    payload: contact
+  };
+}
+
+function editContactSuccess(contact) {
+  return {
+    type: actions.EDIT_CONTACT_SUCCESS,
     payload: contact
   };
 }
@@ -47,6 +50,14 @@ export function deleteContact(id) {
   return dispatch => {
     axios.delete(`${BASE_URL}/contacts/${id}`).then(response => {
       dispatch(deleteContactSuccess(response));
+    });
+  };
+}
+
+export function editContact(id, data) {
+  return dispatch => {
+    axios.put(`${BASE_URL}/contacts/${id}`, data).then(response => {
+      dispatch(editContactSuccess(response));
     });
   };
 }

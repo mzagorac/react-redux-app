@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 
 import { deleteContact } from "../actions/contactActions";
 
 class Contact extends Component {
-  handleClick = id => {
+  handleDelete = id => {
     this.props.contactDelete(id);
   };
 
@@ -15,7 +16,10 @@ class Contact extends Component {
     return (
       <div>
         <h2>{name}</h2>
-        <Button onClick={() => this.handleClick(_id)}>Delete</Button>
+        <Button onClick={() => this.handleDelete(_id)}>Delete</Button>
+        <Link to={{ pathname: "/create", state: { ...this.props.contact } }}>
+          <Button>Edit</Button>
+        </Link>
       </div>
     );
   }
