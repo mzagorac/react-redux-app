@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { deleteContact } from "../actions/contactActions";
+import "./styles/Contact.css";
 
 class Contact extends Component {
   handleDelete = id => {
@@ -14,11 +15,14 @@ class Contact extends Component {
   render() {
     const { name, _id } = this.props.contact;
     return (
-      <div>
+      <div className="contact-wrapper">
         <h2>{name}</h2>
         <Button onClick={() => this.handleDelete(_id)}>Delete</Button>
         <Link to={{ pathname: "/create", state: { ...this.props.contact } }}>
           <Button>Edit</Button>
+        </Link>
+        <Link to={{ pathname: "/details", state: { ...this.props.contact } }}>
+          <Button>Details</Button>
         </Link>
       </div>
     );
