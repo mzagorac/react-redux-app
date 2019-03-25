@@ -2,6 +2,7 @@ const Contact = require("../models/Contact");
 
 function getAllContacts(req, res) {
   Contact.find()
+    .sort({ name: -1 })
     .exec()
     .then(data => res.status(200).send(data))
     .catch(err => res.send(400).send("Unable to find data"));

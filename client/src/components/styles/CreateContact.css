@@ -1,2 +1,15 @@
-.create-contact-wrapper {
+.create-contact-back {
+  position: fixed;
+  top: 100px;
+  left: 50px;
+  padding: 4px 10px;
+  text-decoration: none;
+  font-size: 25px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 6px;
+}
+
+.create-contact-back:hover {
+  color: white;
+  background-color: rgb(187, 184, 184);
 }

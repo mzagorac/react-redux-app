@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { saveContact, editContact } from "../actions/contactActions";
 import serialize from "form-serialize";
+import { Link } from "react-router-dom";
 
 import "./styles/CreateContact.css";
 
@@ -47,8 +48,12 @@ class CreateContact extends Component {
   };
 
   render() {
+    console.log(this.props);
     return (
       <div className="create-contact-wrapper">
+        <Link to="/" className="create-contact-back">
+          Go back
+        </Link>
         <form onSubmit={this.submitContact} onChange={this.handleChange}>
           <TextField
             name="name"
