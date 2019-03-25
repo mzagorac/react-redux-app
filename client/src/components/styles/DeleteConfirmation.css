@@ -14,8 +14,24 @@
 
 .delete-confirmation-content {
   width: 250px;
-  height: 200px;
+  height: 150px;
   background-color: white;
   text-align: center;
-  padding: 25px;
+  padding-top: 25px;
+}
+
+.delete-confirmation-content button {
+  width: 85px;
+  padding: 5px;
+  margin: 5px;
+  font-weight: 200;
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid rgb(211, 214, 216);
+}
+
+.delete-confirmation-content button:hover {
+  color: white;
+  background-color: rgb(148, 144, 144);
+  font-weight: bold;
 }
