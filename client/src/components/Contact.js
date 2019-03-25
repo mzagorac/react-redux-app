@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 
-import { deleteContact } from "../actions/contactActions";
+import { deleteContact, deleteConfirm } from "../actions/contactActions";
 import "./styles/Contact.css";
 
 class Contact extends Component {
   handleDelete = id => {
-    this.props.contactDelete(id);
+    this.props.confirmDelete(!this.props.delete, id);
+    // this.props.contactDelete(id);
   };
 
   render() {
@@ -17,7 +18,7 @@ class Contact extends Component {
     return (
       <div className="contact-wrapper">
         <h2>{name}</h2>
-        <Button onClick={() => this.handleDelete(_id)}>Delete</Button>
+        <Button onClick={e => this.handleDelete(_id)}>Delete</Button>
         <Link to={{ pathname: "/create", state: { ...this.props.contact } }}>
           <Button>Edit</Button>
         </Link>
@@ -31,7 +32,14 @@ class Contact extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    contactDelete: id => dispatch(deleteContact(id))
+    // contactDelete: id => dispatch(deleteContact(id)),
+    confirmDelete: (val, id) => dispatch(deleteConfirm(val, id))
+  };
+}
+
+function mapStateToProps(state) {
+  return {
+    delete: state.contacts.confirmDeletion
   };
 }
 

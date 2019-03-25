@@ -1,7 +1,9 @@
 import * as types from "../actions/types";
 
 const initialState = {
-  contacts: []
+  contacts: [],
+  confirmDeletion: false,
+  id: undefined
 };
 
 export function contacts(state = initialState, action) {
@@ -31,6 +33,12 @@ export function contacts(state = initialState, action) {
       return {
         ...state,
         contacts: [...newContacts, action.payload.data]
+      };
+    case types.DELETE_CONFIRM:
+      return {
+        ...state,
+        confirmDeletion: action.payload.val,
+        id: action.payload.id
       };
 
     default:

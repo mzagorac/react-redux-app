@@ -8,6 +8,7 @@ import "./App.css";
 import Contacts from "../components/Contacts";
 import CreateContact from "../components/CreateContact";
 import ContactDetails from "../components/ContactDetails";
+import DeleteConfirmation from "../components/DeleteConfirmation";
 
 class App extends Component {
   componentDidMount() {
@@ -17,6 +18,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        {this.props.delete && <DeleteConfirmation />}
         <AppBar>
           <Toolbar className="toolbar">
             <Typography variant="h6" color="inherit">
@@ -43,7 +45,8 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    contacts: state.contacts.contacts
+    contacts: state.contacts.contacts,
+    delete: state.contacts.confirmDeletion
   };
 }
 

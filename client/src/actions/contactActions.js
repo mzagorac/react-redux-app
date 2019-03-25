@@ -30,6 +30,13 @@ function editContactSuccess(contact) {
   };
 }
 
+export function deleteConfirm(val, id) {
+  return {
+    type: actions.DELETE_CONFIRM,
+    payload: { val, id }
+  };
+}
+
 export function fetchContacts() {
   return dispatch => {
     axios.get(`${BASE_URL}/contacts`).then(response => {

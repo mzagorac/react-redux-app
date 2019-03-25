@@ -5,6 +5,8 @@ import Button from "@material-ui/core/Button";
 import { saveContact, editContact } from "../actions/contactActions";
 import serialize from "form-serialize";
 
+import "./styles/CreateContact.css";
+
 class CreateContact extends Component {
   state = {
     name: "",
@@ -46,7 +48,7 @@ class CreateContact extends Component {
 
   render() {
     return (
-      <div style={{ width: "45%" }}>
+      <div className="create-contact-wrapper">
         <form onSubmit={this.submitContact} onChange={this.handleChange}>
           <TextField
             name="name"
